@@ -1,0 +1,23 @@
+newmtl Default
+Ka 0.2 0.2 0.2
+Ke 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Ns 0
+Tr 0
+d 1
+Ni 0
+Tf 1 1 1
+
+newmtl Default
+Ka 1 1 1
+Ke 0 0 0
+Kd 0.8 0.8 0.8
+Ks 1 1 1
+Ns 0
+Tr 0
+d 1
+Ni 0
+Tf 1 1 1
+map_Ka S:GameDev/Unity Projects/IsometricTest/Assets/Resources/defaultimg.png
+

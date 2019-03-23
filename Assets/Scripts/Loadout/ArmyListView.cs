@@ -19,7 +19,7 @@ public class ArmyListView : MonoBehaviour {
 
 	void Start() {
 
-		open = true;
+		open = false;
 		moving = false;
 		inward = new GameObject ("StartScroll");
 		outward = new GameObject ("EndScroll");
@@ -35,7 +35,7 @@ public class ArmyListView : MonoBehaviour {
 	//(float)(Screen.height+(Screen.height/10))
 	void FixedUpdate() {
 		if (this.gameObject.transform.position.y == end.position.y) {
-			print ("FIN");
+			//print ("FIN");
 			moving = false;
 		}
 		if (moving) {
@@ -63,4 +63,5 @@ public class ArmyListView : MonoBehaviour {
 		journeyLength = Vector3.Distance (start.position, end.position);
 		moving = true;
 	}
+
 }

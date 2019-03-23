@@ -10,9 +10,11 @@ public class View : MonoBehaviour {
 	public Transform start;
 	public Transform end;
 	public float maxRatio = 1.8f;
-	public float rescaleRate = 1.0f;
-	public float xdiff, ydiff;
+	public float rescaleRate;
+	public float rescaleBase;
+	public float xrate, yrate;
 	public bool moving;
+	public bool resizingx, resizingy;
 
 	public float speed;
 	public float initSpeed;
@@ -31,16 +33,21 @@ public class View : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (end != null) {
 			if (sameSize ()) {
-				if (this.gameObject.transform.position.x == end.position.x) {
-					print ("FIN");
+				
+				if (this.gameObject.transform.position == end.position) {
 					moving = false;
+					if (resizingx && resizingy) {
+						reset();
+					}
 					if (!open) {
-						this.gameObject.SetActive (false);
+						//this.gameObject.SetActive (false);
 					}
 				}
+
+				Debug.Log (moving);
 				if (moving) {
 					float distCovered = (Time.time - startTime) * speed;
 					float fracJourney = distCovered / journeyLength;
@@ -52,9 +59,42 @@ public class View : MonoBehaviour {
 					}		
 				}
 			} else { //Not same size
-				float scaleCovered = (Time.time - startTime) * rescaleRate;
-				float fracJourney = scaleCovered / journeyLength;
-				this.gameObject.transform.position = Vector3.Lerp (start.localScale, end.localScale, fracJourney);
+				//float scaleCovered = (Time.time - startTime) * rescaleRate;
+				//float fracJourney = scaleCovered / journeyLength;
+				//this.gameObject.transform.position = Vector3.Lerp (start.localScale, end.localScale, fracJourney);
+
+
+				if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.x > outward.GetComponent<RectTransform> ().sizeDelta.x) {
+					this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta = new Vector2(this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.x - (xrate * rescaleRate), this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.y);
+				} 
+				if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.y > outward.GetComponent<RectTransform> ().sizeDelta.y) {
+					this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta = new Vector2(this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.x, this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.y - (yrate * rescaleRate));
+				} 
+
+				if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.x < outward.GetComponent<RectTransform> ().sizeDelta.x) {
+					this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta = new Vector2 (outward.GetComponent<RectTransform> ().sizeDelta.x, this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.y);
+					resizingx = true;
+				}
+				if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.y < outward.GetComponent<RectTransform> ().sizeDelta.y) {
+					this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta = new Vector2 (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta.x, outward.GetComponent<RectTransform> ().sizeDelta.y);
+					resizingy = true;
+				}
+	
+				rescaleRate -= rescaleRate * 0.12f;
+
+				float distCovered = (Time.time - startTime) * speed;
+				float fracJourney = distCovered / journeyLength;
+				this.gameObject.transform.position = Vector3.Lerp (start.position, end.position, fracJourney);
+
+				if (resizingx && resizingy && this.gameObject.transform.position.x == end.position.x) {
+					this.gameObject.GetComponent<UnitView> ().toggleAfterSize ();
+
+				}
+				//this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta = new Vector2(outward.GetComponent<RectTransform> ().sizeDelta.x, outward.GetComponent<RectTransform> ().sizeDelta.y);
+
+				//this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().sizeDelta = new Vector2 (outward.GetComponent<RectTransform> ().rect.width, outward.GetComponent<RectTransform> ().rect.height);
+				//Debug.Log (this.gameObject.GetComponent<RectTransform> ().sizeDelta);
+				//Debug.Log (outward.GetComponent<RectTransform> ().sizeDelta);
 			}
 		}
 	}
@@ -66,49 +106,60 @@ public class View : MonoBehaviour {
 			initiateLocations ();
 		}
 
-		speed = initSpeed;
-		startTime = Time.time;
 		if (open) {
+
+			if (this.gameObject.GetComponent <CanvasGroup> () != null) {
+				this.gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+				this.gameObject.GetComponent<CanvasGroup> ().interactable = false;
+			}
 			start = outward.transform;
 			end = inward.transform;
 			open = false;
 		} else {
+
+			if (this.gameObject.GetComponent <CanvasGroup> () != null) {
+				this.gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+				this.gameObject.GetComponent<CanvasGroup> ().interactable = true;
+			}
 			this.gameObject.SetActive (true);
 			start = inward.transform;
 			end = outward.transform;
 			open = true;
 		}
+
+		speed = initSpeed;
+		startTime = Time.time;
 		journeyLength = Vector3.Distance (start.position, end.position);
 		moving = true;
 	}
 
-	public virtual void initiateLocations () {
-		Debug.Log ("Invalid View Type");
-	}
-
 	public bool sameSize() {
 
-		if (this.gameObject.transform.localScale.x == outward.transform.localScale.x
+		/*		if (this.gameObject.transform.localScale.x == outward.transform.localScale.x
 			&& this.gameObject.transform.localScale.y == outward.transform.localScale.y
 			&& this.gameObject.transform.localScale.z == outward.transform.localScale.z) {
 			return true;
 		}
-
-		/*if (this.gameObject.GetComponent<RectTransform> ().rect.width == outward.GetComponent<RectTransform> ().rect.width
-		&& this.gameObject.GetComponent<RectTransform> ().rect.height == outward.GetComponent<RectTransform> ().rect.height) {
+*/
+		if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> () != null && outward.GetComponent<RectTransform> () != null) {
+			if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().rect.width == outward.GetComponent<RectTransform> ().rect.width
+			    && this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().rect.height == outward.GetComponent<RectTransform> ().rect.height) {
+				return true;
+			}
+		} else {
 			return true;
-		}*/
-		Debug.Log ("Not same size");
+		}
 		return false;
 	}
 
-	public void getSizeDifference() {
-
-		//Start - goal, take away from difference at each Update
-		//float xdiff = this.gameObject.GetComponent<RectTransform> ().rect.width - outward.GetComponent<RectTransform> ().rect.width;
-		//float ydiff = this.gameObject.GetComponent<RectTransform> ().rect.height - outward.GetComponent<RectTransform> ().rect.height;
-		//startTime = Time.time;
-		//start = inward.transform;
-		//end = outward.transform;
+	public virtual void initiateLocations () {
+		Debug.Log ("Using base View class is forbidden");
 	}
+
+	public virtual void reset() {
+		Debug.Log ("Using base View class is forbidden");
+	}
+
+
+
 }

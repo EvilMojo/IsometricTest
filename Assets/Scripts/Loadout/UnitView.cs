@@ -5,6 +5,10 @@ using UnityEngine;
 public class UnitView : View {
 
 	public GameObject coreStart;
+	public GameObject coreCentre;
+
+	public int unitIndex;
+	public GameObject unit;
 
 	public void dismiss() {
 		outward.transform.position = this.gameObject.transform.position;
@@ -31,13 +35,13 @@ public class UnitView : View {
 		xrate = this.gameObject.GetComponent<RectTransform> ().sizeDelta.x / outward.GetComponent<RectTransform> ().sizeDelta.x;
 		yrate = this.gameObject.GetComponent<RectTransform> ().sizeDelta.y / outward.GetComponent<RectTransform> ().sizeDelta.y;
 
-		journeyLength = Vector3.Distance (start.position, end.position);
 
 		this.gameObject.transform.GetChild (0).transform.GetChild (0).gameObject.GetComponent<CanvasGroup> ().alpha = 0;
 
 		//Debug.Log ("X: " + xrate + " Y: " + yrate);
 		rescaleRate = rescaleBase;
 
+		journeyLength = Vector3.Distance (start.position, end.position);
 		startTime = Time.time;
 		speed = 125.0f;
 	}
@@ -67,8 +71,12 @@ public class UnitView : View {
 		speed = initSpeed;
 		if (coreStart == null) {
 			coreStart = new GameObject ("coreStart");
+			coreCentre = new GameObject ("coreCentre");
 			coreStart.AddComponent<RectTransform> ();
 			coreStart.GetComponent<RectTransform> ().sizeDelta = this.gameObject.transform.GetChild(0).GetComponent<RectTransform> ().sizeDelta;
+			coreCentre.AddComponent<RectTransform> ();
+			coreCentre.GetComponent<RectTransform> ().sizeDelta = this.gameObject.transform.GetChild(0).GetComponent<RectTransform> ().sizeDelta;
+
 		}
 		coreStart.transform.position = this.gameObject.transform.position;
 		coreStart.transform.position = this.gameObject.transform.position;
@@ -83,6 +91,7 @@ public class UnitView : View {
 		outward.GetComponent<RectTransform> ().sizeDelta = this.gameObject.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta;
 		inward.transform.position = this.gameObject.transform.position;
 		outward.transform.position = new Vector3((Screen.width/2)/maxRatio, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+		coreCentre.transform.position = outward.transform.position;
 		//this.gameObject.SetActive (false);
 		//this.gameObject.transform.position.x + (float)this.gameObject.GetComponent<RectTransform>().rect.width
 	}
@@ -99,6 +108,22 @@ public class UnitView : View {
 		resizingy = false;
 
 		initiateLocations ();
+
+	}
+
+	public void slideUpward(RectTransform iconTransform) {
+		initiateLocations ();
+
+		inward.transform.position = iconTransform.position;
+		start = inward.transform;
+
+		outward.transform.position = coreCentre.transform.position;
+		end = coreCentre.transform;
+
+		journeyLength = Vector3.Distance (start.position, end.position);
+		startTime = Time.time;
+
+		toggle ();
 
 	}
 }

@@ -47,7 +47,6 @@ public class View : MonoBehaviour {
 					}
 				}
 
-				Debug.Log (moving);
 				if (moving) {
 					float distCovered = (Time.time - startTime) * speed;
 					float fracJourney = distCovered / journeyLength;

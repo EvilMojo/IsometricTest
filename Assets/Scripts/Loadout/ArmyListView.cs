@@ -64,4 +64,13 @@ public class ArmyListView : MonoBehaviour {
 		moving = true;
 	}
 
+	public void scrapArmy() {
+		this.transform.FindChild ("ScrapConfirm").FindChild ("Text").GetComponent<UnityEngine.UI.Text> ().text = "Scrap";
+		toggle ();
+	}
+
+	public void confirmArmy() {
+		this.transform.FindChild ("ScrapConfirm").FindChild ("Text").GetComponent<UnityEngine.UI.Text> ().text = "Confirm";
+		toggle ();
+	}
 }

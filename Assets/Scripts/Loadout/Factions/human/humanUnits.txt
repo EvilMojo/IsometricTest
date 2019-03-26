@@ -1,0 +1,6 @@
+﻿Drone
+DRONE
+HumanDrone.png
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+optic, carry, carry, null, null, null
+Human drones are used for scouting and sabotage tasks

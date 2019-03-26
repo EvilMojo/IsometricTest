@@ -16,8 +16,8 @@ public class OptionsView : View {
 		this.gameObject.GetComponent<CanvasGroup> ().alpha = 0;
 		this.gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		this.gameObject.GetComponent<CanvasGroup> ().interactable = false;
-		inward.transform.parent = GameObject.Find ("Unit").transform;
-		outward.transform.parent = GameObject.Find ("Unit").transform;
+		inward.transform.parent = GameObject.Find ("UnitPicker").transform;
+		outward.transform.parent = GameObject.Find ("UnitPicker").transform;
 
 		Transform collection;
 

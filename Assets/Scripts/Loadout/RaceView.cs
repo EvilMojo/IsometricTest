@@ -16,4 +16,11 @@ public class RaceView : View {
 		//this.gameObject.SetActive (false);
 		//this.gameObject.transform.position.x + (float)this.gameObject.GetComponent<RectTransform>().rect.width
 	}
+
+	public void setFactionHuman() {
+		GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().setFaction (PlayerSetup.Faction.HUMAN);
+	}
+	public void setFactionIaxin() {
+		GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().setFaction (PlayerSetup.Faction.IAXIN);
+	}
 }

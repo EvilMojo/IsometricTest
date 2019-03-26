@@ -44,6 +44,13 @@ public class OptionsView : View {
 		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().interactable = false;
 		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().blocksRaycasts = false;
 
+		//print (GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().unitList);
+		foreach (GameObject unitType in GameObject.Find("PlayerSetup").GetComponent<Human>().unitList) {
+			print (unitType.GetComponent<UnitBase>().unitName);
+
+			//Need to make it so that each unit template is presented in the unit List view as a separate option
+		}
+
 		toggle ();
 	}
 

@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class EquipmentBase : MonoBehaviour {
 
+	public enum EquipmentType
+	{
+		HEAD,
+		BODY,
+		WEAPON,
+		CARRY,
+		FEET,
+		UTILITY
+	}
+
 	public string equipmentName;
 	public Texture2D portrait;
+	public EquipmentType type;
 
 	// Use this for initialization
 	void Start () {

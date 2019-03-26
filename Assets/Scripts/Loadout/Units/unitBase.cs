@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitBase : MonoBehaviour {
+public class UnitBase : MonoBehaviour {
 
 
 	public enum UnitType
@@ -17,7 +17,7 @@ public abstract class UnitBase : MonoBehaviour {
 	public UnitType type;
 	public Texture2D portrait;
 	public int[] stat;
-	public EquipmentBase[] equipment;
+	public GameObject[] equipmentSlots;
 	public string description;
 
 	// Use this for initialization
@@ -27,7 +27,7 @@ public abstract class UnitBase : MonoBehaviour {
 
 	public virtual void init() {
 
-		unitName = "Unnamed Unit";
+		/*unitName = "Unnamed Unit";
 		name = unitName;
 
 		portrait = new Texture2D ((int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.x, (int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.y);
@@ -37,10 +37,13 @@ public abstract class UnitBase : MonoBehaviour {
 			stat [i] = 0;
 		}
 
-		equipment = new EquipmentBase[6];
+		equipmentSlots = new GameObject[6];
 		for (int i = 0; i < 6; i++) {
-			equipment[i] = new EquipmentBase();
+			equipmentSlots[i] = new GameObject();
+			equipmentSlots [i].transform.SetParent (this.gameObject.transform);
 		}
+
+		description = "Basic Unit";*/
 	}
 
 	public void readUnit() {

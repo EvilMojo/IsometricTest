@@ -10,7 +10,8 @@ public class UnitBase : MonoBehaviour {
 		DRONE,
 		SENTINEL,
 		PRISM,
-		MACARBIS
+		MACARBIS,
+		SEEKER
 	}
 
 	public string unitName;
@@ -32,8 +33,8 @@ public class UnitBase : MonoBehaviour {
 
 		portrait = new Texture2D ((int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.x, (int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.y);
 
-		stat = new int[10];
-		for (int i = 0; i < 10; i++) {
+		stat = new int[8];
+		for (int i = 0; i < 8; i++) {
 			stat [i] = 0;
 		}
 

@@ -11,7 +11,9 @@ public class Human : MonoBehaviour {
 	public GameObject[] equipmentList;
 	public string dataPath = "Assets/Resources/GameData/";
 	public string unitsFile = "humanUnits.txt";
-	public string equipmentFile = "humanEquipment.txt";
+	public string equipmentFile = "humanEquipments.txt";
+	public const int unitCount = 5;
+	public const int equipmentCount = 5;
 
 
 	// Use this for initialization
@@ -29,7 +31,7 @@ public class Human : MonoBehaviour {
 		public EquipmentBase[] equipment; * 6
 		public string description;*/
 
-		unitList = new GameObject[4];
+		unitList = new GameObject[5];
 
 		List<string> unitdata = readFile (dataPath + unitsFile);
 
@@ -54,6 +56,8 @@ public class Human : MonoBehaviour {
 				unitList [i].GetComponent<UnitBase> ().type = UnitBase.UnitType.PRISM;
 			} else if (unitdata [iterator] == "MACARBIS") {
 				unitList [i].GetComponent<UnitBase> ().type = UnitBase.UnitType.MACARBIS;
+			} else if (unitdata [iterator] == "SEEKER") {
+				unitList [i].GetComponent<UnitBase> ().type = UnitBase.UnitType.SEEKER;
 			}
 			iterator++;
 
@@ -61,47 +65,102 @@ public class Human : MonoBehaviour {
 
 			string[] ints = unitdata [iterator++].Split (' ');
 
+			if (unitList [i].GetComponent<UnitBase> ().stat == null) {
+				unitList [i].GetComponent<UnitBase> ().stat = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+			} 
 			for (int s = 0; s < ints.Length; s++) {
-				print (s + " " + ints [s]);
-				if (unitList [i].GetComponent<UnitBase> ().stat == null) {
-					unitList [i].GetComponent<UnitBase> ().stat = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-				} 
 				unitList [i].GetComponent<UnitBase> ().stat [s] = int.Parse (ints [s]);
 			}
 
-			string[] equipmentstring = unitdata [iterator++].Split(' ');
-			unitList[i].GetComponent<UnitBase>().equipmentSlots = new GameObject[equipmentstring.Length];
-			for (int e = 0; e < equipmentstring.Length; e++) {
-
-				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e] = new GameObject ();
-				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].transform.SetParent (unitList [i].gameObject.transform);
-
-				/*Maybe not here, either in equipment or equipment needs to come first
-				 * if (equipmentstring [e] == "HEAD") {
-					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].AddComponent<EquipmentBase> ();
-				} else if (equipmentstring [e] == "BODY") {
-				} else if (equipmentstring [e] == "WEAPON") {
-				} else if (equipmentstring [e] == "CARRY") {
-				} else if (equipmentstring [e] == "FEET") {
-				} else if (equipmentstring [e] == "UTILITY") {
-				}*/
+			string[] equipments = unitdata [iterator++].Split (' ');
+			if (unitList [i].GetComponent<UnitBase> ().equipmentSlots == null) {
+				unitList [i].GetComponent<UnitBase> ().equipmentSlots = new GameObject[equipments.Length];
 			}
-			unitList[i].GetComponent<UnitBase>().description = unitdata [iterator++];
+			for (int e = 0; e < equipments.Length; e++) {
+				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e] = new GameObject ();
+				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].transform.SetParent (unitList[i].transform);
+				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].name = equipments [e];
+			}
+
+			unitList [i].GetComponent<UnitBase> ().description = unitdata [iterator++]; 
 		}
 		return unitList;
 	}
 
-	public void loadEquipment() {
+	public GameObject[] loadEquipment() {
 
-		equipmentList = new GameObject[10];
+		/*Helmet
+		HELMET
+		helmet
+		0 0 0 0 0 0 0 0
+		This is a basic General helmet*/
+		equipmentList = new GameObject[5];
 
-		List<string> equipmentData = readFile (equipmentFile);
+		List<string> equipmentData = readFile (dataPath + equipmentFile);
 
 		int iterator = 0;
 
-		for (int i = 0; i < unitList.Length; i++) {
+		for (int i = 0; i < equipmentList.Length; i++) {
+
+			equipmentList[i] = new GameObject();
+
+			equipmentList[i].gameObject.transform.SetParent (this.gameObject.transform);
+
+			equipmentList[i].AddComponent<EquipmentBase>();
+
+			equipmentList[i].GetComponent<EquipmentBase>().equipmentName = equipmentData [iterator];
+			equipmentList[i].GetComponent<EquipmentBase>().gameObject.name = equipmentData [iterator++] + "Template";
+
+			if (equipmentData [iterator] == "HEAD") {
+			} else if (equipmentData [iterator] == "BODY") {
+			} else if (equipmentData [iterator] == "WEAPON") {
+			} else if (equipmentData [iterator] == "CARRY") {
+			} else if (equipmentData [iterator] == "FEET") {
+			} else if (equipmentData [iterator] == "UTILITY") {
+			}
+			iterator++;
+
+			equipmentList[i].GetComponent<EquipmentBase>().portrait = Resources.Load(("Images/Factions/Human/Equipment/" + (equipmentData [iterator++])), typeof (Sprite)) as Sprite;
+
+			string[] wearer = equipmentData [iterator++].Split (' ');
+			if (equipmentList [i].GetComponent<EquipmentBase> ().validWearer == null) {
+				equipmentList [i].GetComponent<EquipmentBase> ().validWearer = new UnitBase.UnitType[wearer.Length];
+			}
+
+			for (int e = 0; e < wearer.Length; e++) {
+				if (wearer[e] == "DRONE") {
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[e] = UnitBase.UnitType.DRONE;
+				} else if (wearer[e] == "SENTINEL") {
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[e] = UnitBase.UnitType.SENTINEL;
+				} else if (wearer[e] == "PRISM") {
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[e] = UnitBase.UnitType.PRISM;
+				} else if (wearer[e] == "MACARBIS") {
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[e] = UnitBase.UnitType.MACARBIS;
+				} else if (wearer[e] == "SEEKER") {
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[e] = UnitBase.UnitType.SEEKER;
+				} else if (wearer[e] == "ALL") {
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer = new UnitBase.UnitType[5];
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[0] = UnitBase.UnitType.DRONE;
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[1] = UnitBase.UnitType.SENTINEL;
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[2] = UnitBase.UnitType.PRISM;
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[3] = UnitBase.UnitType.MACARBIS;
+					equipmentList [i].GetComponent<EquipmentBase> ().validWearer[4] = UnitBase.UnitType.SEEKER;
+				}
+			}
+
+			string[] ints = equipmentData [iterator++].Split (' ');
+
+			if (equipmentList [i].GetComponent<EquipmentBase> ().stat == null) {
+				equipmentList [i].GetComponent<EquipmentBase> ().stat = new int[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
+			}
+			for (int s = 0; s < ints.Length; s++) {
+				equipmentList [i].GetComponent<EquipmentBase> ().stat [s] = int.Parse (ints [s]);
+			}
+
+			equipmentList [i].GetComponent<EquipmentBase> ().description = equipmentData [iterator++]; 
 
 		}
+		return equipmentList;
 	}
 
 	public List<string> readFile(string file) {

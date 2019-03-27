@@ -15,8 +15,11 @@ public class EquipmentBase : MonoBehaviour {
 	}
 
 	public string equipmentName;
-	public Texture2D portrait;
-	public EquipmentType type;
+	public EquipmentType location;
+	public Sprite portrait;
+	public UnitBase.UnitType[] validWearer;
+	public int[] stat;
+	public string description;
 
 	// Use this for initialization
 	void Start () {

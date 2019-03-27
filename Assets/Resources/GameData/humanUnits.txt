@@ -1,24 +1,30 @@
 ﻿Drone
 DRONE
 drone
-1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8
 optic carry carry
 Human drones are used for scouting and sabotage operations
 Sentinel
 SENTINEL
 sentinel
-1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8
 head weapon optic carry carry
 Human Sentinals are used for reconnaisance and rapid dispatch activities
 Prism
 PRISM
 prism
-1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8
 optic weapon weapon weapon weapon utility
 Prisms are deployed in the need of heavy weaponry
 Macarbis
 MACARBIS
 macarbis
-1 2 3 4 5 6 7 8 9 10
-optic optic weapon,weapon weapon feet
+1 2 3 4 5 6 7 8
+optic optic weapon weapon weapon feet
 Savage and ruthless, Macarbis are feared by Iaxin and Human alike
+Seeker
+SEEKER
+seeker
+1 2 3 4 5 6 7 8
+optic optic weapon
+Small scout device that is used for reconnaisance and surveillance

@@ -39,47 +39,52 @@ public class OptionsView : View {
 		//this.gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 		//this.gameObject.GetComponent<CanvasGroup> ().interactable = true;
 
-		this.gameObject.transform.GetChild (0).transform.GetChild (2).GetComponent<CanvasGroup> ().alpha = 1;
-		this.gameObject.transform.GetChild (0).transform.GetChild (2).GetComponent<CanvasGroup> ().interactable = true;
-		this.gameObject.transform.GetChild (0).transform.GetChild (2).GetComponent<CanvasGroup> ().blocksRaycasts = true;
+		this.gameObject.transform.FindChild ("Panel").transform.FindChild ("UnitOptions").GetComponent<CanvasGroup> ().alpha = 1;
+		this.gameObject.transform.FindChild ("Panel").transform.FindChild ("UnitOptions").GetComponent<CanvasGroup> ().interactable = true;
+		this.gameObject.transform.FindChild ("Panel").transform.FindChild ("UnitOptions").GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
-		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().alpha = 0;
-		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().interactable = false;
-		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().blocksRaycasts = false;
+		this.gameObject.transform.FindChild ("Panel").transform.FindChild ("EquipmentOptions").GetComponent<CanvasGroup> ().alpha = 0;
+		this.gameObject.transform.FindChild ("Panel").transform.FindChild ("EquipmentOptions").GetComponent<CanvasGroup> ().interactable = false;
+		this.gameObject.transform.FindChild ("Panel").transform.FindChild ("EquipmentOptions").GetComponent<CanvasGroup> ().blocksRaycasts = false;
 
-		choiceUIObject = new List<GameObject> ();
-		//print (GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().unitList);
-		int iterator = 0;
-		foreach (GameObject unitTemplate in GameObject.Find("PlayerSetup").GetComponent<Human>().unitList) {
+		print (this.gameObject.transform.FindChild("Panel").FindChild ("UnitOptions").FindChild ("Viewport").FindChild ("Content").childCount);
+		if (this.gameObject.transform.FindChild ("Panel").FindChild("UnitOptions").FindChild ("Viewport").FindChild ("Content").childCount == 0) {
+			choiceUIObject = new List<GameObject> ();
+			//print (GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().unitList);
+			int iterator = 0;
 
-			GameObject unitItem = Instantiate(Resources.Load("UIPrefabs/UnitItem", typeof (GameObject)) as GameObject);
+			foreach (GameObject unitTemplate in GameObject.Find("PlayerSetup").GetComponent<Human>().unitList) {
 
-			unitItem.transform.FindChild ("Portrait").gameObject.GetComponent<Image>().sprite = unitTemplate.GetComponent<UnitBase>().portrait;
-			unitItem.transform.FindChild ("Name").gameObject.GetComponent<Text> ().text = unitTemplate.GetComponent<UnitBase> ().unitName;
-			unitItem.transform.FindChild ("Description").FindChild ("Text").gameObject.GetComponent<Text> ().text = unitTemplate.GetComponent<UnitBase> ().description;
+				GameObject unitItem = Instantiate (Resources.Load ("UIPrefabs/UnitItem", typeof(GameObject)) as GameObject);
 
-			for (int i = 0; i < 10; i++) {
-				//unitItem.transform.FindChild("Stats").FindChild("Stat ("+i.ToString()+")").FindChild("StatIcon") == REQUIRE IMAGES FIRST;
-				unitItem.transform.FindChild("Stats").FindChild("Stat ("+i.ToString()+")").FindChild("StatNum").gameObject.GetComponent<Text>().text = unitTemplate.GetComponent<UnitBase>().stat[i].ToString();
+				unitItem.transform.FindChild ("Portrait").gameObject.GetComponent<Image> ().sprite = unitTemplate.GetComponent<UnitBase> ().portrait;
+				unitItem.transform.FindChild ("Name").gameObject.GetComponent<Text> ().text = unitTemplate.GetComponent<UnitBase> ().unitName;
+				unitItem.transform.FindChild ("Description").FindChild ("Text").gameObject.GetComponent<Text> ().text = unitTemplate.GetComponent<UnitBase> ().description;
+
+				for (int i = 0; i < 8; i++) {
+					//unitItem.transform.FindChild("Stats").FindChild("Stat ("+i.ToString()+")").FindChild("StatIcon") == REQUIRE IMAGES FIRST;
+					unitItem.transform.FindChild ("Stats").FindChild ("Stat (" + i.ToString () + ")").FindChild ("StatNum").gameObject.GetComponent<Text> ().text = unitTemplate.GetComponent<UnitBase> ().stat [i].ToString ();
+				}
+
+				unitItem.transform.SetParent (GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("UnitOptions").FindChild ("Viewport").FindChild ("Content"));
+				unitItem.transform.localScale = new Vector3 (1, 1, 1);
+				unitItem.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 1);
+				unitItem.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 1);
+				unitItem.GetComponent<RectTransform> ().pivot = new Vector2 (0, 0);
+				unitItem.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (0, -(unitItem.GetComponent<RectTransform> ().sizeDelta.y * (iterator + 1)));
+				unitItem.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 90);
+
+				unitItem.GetComponent<Button> ().onClick.AddListener (toggle);
+				iterator++;
+				//Need to make it so that each unit template is presented in the unit List view as a separate option
+				//GameObject choice = Instantiate(
 			}
-
-			unitItem.transform.SetParent(GameObject.Find("ArmyPicker").transform.FindChild("UnitPicker").FindChild("Options").FindChild("Panel").FindChild("UnitOptions").FindChild("Viewport").FindChild("Content"));
-			unitItem.transform.localScale = new Vector3 (1, 1, 1);
-			unitItem.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 1);
-			unitItem.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 1);
-			unitItem.GetComponent<RectTransform> ().pivot = new Vector2 (0, 0);
-			unitItem.transform.position = new Vector3(0,
-				0,
-				//-(unitItem.GetComponent<RectTransform>().sizeDelta.y)*iterator, 
-				unitItem.transform.parent.position.z);
-			unitItem.GetComponent<RectTransform> ().sizeDelta = new Vector2 (unitItem.transform.parent.gameObject.GetComponent<RectTransform> ().sizeDelta.x, 90);
-
-			unitItem.GetComponent<Button> ().onClick.AddListener(toggle);
-			iterator++;
-			//Need to make it so that each unit template is presented in the unit List view as a separate option
-			//GameObject choice = Instantiate(
+			GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("UnitOptions").FindChild ("Viewport").FindChild ("Content").gameObject.GetComponent<RectTransform> ().sizeDelta 
+			= new Vector2 (GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("UnitOptions").FindChild ("Viewport").FindChild ("Content").gameObject.GetComponent<RectTransform> ().sizeDelta.x, 
+				15 * iterator);
+			infoToggle ();
+			infoToggle ();
 		}
-
 		toggle ();
 	}
 
@@ -110,12 +115,12 @@ public class OptionsView : View {
 		}
 
 		foreach (Transform item in collection) {
-			if (item.GetChild (2).GetComponent<CanvasGroup> ().alpha == 1) {
-				item.GetChild (2).GetComponent<CanvasGroup> ().alpha = 0;
-				item.GetChild (3).GetComponent<CanvasGroup> ().alpha = 1;
+			if (item.FindChild ("Description").GetComponent<CanvasGroup> ().alpha == 1) {
+				item.FindChild ("Description").GetComponent<CanvasGroup> ().alpha = 0;
+				item.FindChild ("Stats").GetComponent<CanvasGroup> ().alpha = 1;
 			} else {
-				item.GetChild (2).GetComponent<CanvasGroup> ().alpha = 1;
-				item.GetChild (3).GetComponent<CanvasGroup> ().alpha = 0;
+				item.FindChild ("Description").GetComponent<CanvasGroup> ().alpha = 1;
+				item.FindChild ("Stats").GetComponent<CanvasGroup> ().alpha = 0;
 			}
 		}
 	}

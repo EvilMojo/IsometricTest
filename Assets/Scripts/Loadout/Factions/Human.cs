@@ -57,7 +57,7 @@ public class Human : MonoBehaviour {
 			}
 			iterator++;
 
-			unitList[i].GetComponent<UnitBase>().portrait = Resources.Load(("Images/Factions/Human/Units/" + (unitdata [iterator++])), typeof (Texture2D)) as Texture2D;
+			unitList[i].GetComponent<UnitBase>().portrait = Resources.Load(("Images/Factions/Human/Units/" + (unitdata [iterator++])), typeof (Sprite)) as Sprite;
 
 			string[] ints = unitdata [iterator++].Split (' ');
 

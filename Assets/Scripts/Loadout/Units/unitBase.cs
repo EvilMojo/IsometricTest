@@ -15,7 +15,7 @@ public class UnitBase : MonoBehaviour {
 
 	public string unitName;
 	public UnitType type;
-	public Texture2D portrait;
+	public Sprite portrait;
 	public int[] stat;
 	public GameObject[] equipmentSlots;
 	public string description;

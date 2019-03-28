@@ -155,6 +155,7 @@ public class Human : MonoBehaviour {
 			}
 			for (int s = 0; s < ints.Length; s++) {
 				equipmentList [i].GetComponent<EquipmentBase> ().stat [s] = int.Parse (ints [s]);
+				print (equipmentList[i].GetComponent<EquipmentBase>().stat[s]);
 			}
 
 			equipmentList [i].GetComponent<EquipmentBase> ().description = equipmentData [iterator++]; 

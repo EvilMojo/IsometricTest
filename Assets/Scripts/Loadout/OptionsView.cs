@@ -67,6 +67,7 @@ public class OptionsView : View {
 				}
 
 				unitItem.transform.SetParent (GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("UnitOptions").FindChild ("Viewport").FindChild ("Content"));
+
 				unitItem.transform.localScale = new Vector3 (1, 1, 1);
 				unitItem.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 1);
 				unitItem.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 1);
@@ -75,6 +76,9 @@ public class OptionsView : View {
 				unitItem.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 90);
 
 				unitItem.GetComponent<Button> ().onClick.AddListener (toggle);
+				unitItem.GetComponent<Button> ().onClick.AddListener (delegate {
+					sendUnitData (unitTemplate);
+				});
 				iterator++;
 				//Need to make it so that each unit template is presented in the unit List view as a separate option
 				//GameObject choice = Instantiate(
@@ -149,6 +153,12 @@ public class OptionsView : View {
 			infoToggle ();
 		}
 		toggle ();
+	}
+
+	public void sendUnitData(GameObject unit) {
+		GameObject.Find ("UnitPicker").GetComponent<UnitView>().assignUnitDetails(unit);
+		GameObject.Find ("UnitPicker").GetComponent<UnitView>().changeUnitUI();
+
 	}
 
 	public void infoToggle() {

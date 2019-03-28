@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitView : View {
 
@@ -9,6 +10,42 @@ public class UnitView : View {
 
 	public int unitIndex;
 	public GameObject unit;
+
+	public void assignUnitDetails (GameObject unit) {
+		print (unit.name + " " + unit.GetComponent<UnitBase>().unitName);
+		print (this.unit.name + this.unit.transform.parent);
+		this.unit.GetComponent<UnitBase> ().unitName = unit.GetComponent<UnitBase> ().unitName;
+		this.unit.GetComponent<UnitBase> ().type = unit.GetComponent<UnitBase> ().type;
+		this.unit.GetComponent<UnitBase> ().portrait = unit.GetComponent<UnitBase> ().portrait;
+		this.unit.GetComponent<UnitBase> ().stat = unit.GetComponent<UnitBase> ().stat;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots = unit.GetComponent<UnitBase> ().equipmentSlots;
+		this.unit.GetComponent<UnitBase> ().description = unit.GetComponent<UnitBase> ().description;
+	}
+
+	public void changeUnitUI() {
+		print ("Assigning unit UI");
+		this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("Portrait").gameObject.GetComponent<Image> ().sprite = this.unit.GetComponent<UnitBase> ().portrait;
+		this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("Name").gameObject.GetComponent<Text> ().text = this.unit.GetComponent<UnitBase> ().unitName;
+
+		for (int i = 0; i < this.unit.GetComponent<UnitBase> ().stat.Length; i++) {
+			this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("UnitStats").FindChild ("Panel").FindChild ("Stat (" + i + ")").FindChild("StatNum").gameObject.GetComponent<Text>().text = unit.GetComponent<UnitBase>().stat[i].ToString();
+		}
+
+		for (int i = 0; i < 6; i++) {
+			GameObject EquipmentSlot = this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + i + ")").gameObject;
+			if (i < this.unit.GetComponent<UnitBase> ().equipmentSlots.Length) {
+				EquipmentSlot.GetComponent<CanvasGroup>().alpha = 1;
+				EquipmentSlot.GetComponent<CanvasGroup> ().interactable = true;
+				EquipmentSlot.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+				//EquipmentSlot.GetComponent<Image>().sprite = unit.GetComponent<UnitBase>().equipmentSlots[i].GetComponent<EquipmentBase>().portrait;
+			} else {
+				//Reset this image, it's not being used
+				EquipmentSlot.GetComponent<CanvasGroup>().alpha = 0;
+				EquipmentSlot.GetComponent<CanvasGroup> ().interactable = false;
+				EquipmentSlot.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+			}
+		}
+	}
 
 	public void dismiss() {
 		outward.transform.position = this.gameObject.transform.position;
@@ -63,6 +100,14 @@ public class UnitView : View {
 	}
 
 	public override void initiateLocations () {
+
+
+		unit = new GameObject ();
+		unit.AddComponent<UnitBase> ();
+		unit.GetComponent<UnitBase>().init ();
+		unit.transform.SetParent (this.gameObject.transform);
+		unit.name = "Unit Interface";
+
 		open = false;
 		moving = false;
 		initSpeed = 2000.0f;
@@ -94,6 +139,9 @@ public class UnitView : View {
 		coreCentre.transform.position = outward.transform.position;
 		//this.gameObject.SetActive (false);
 		//this.gameObject.transform.position.x + (float)this.gameObject.GetComponent<RectTransform>().rect.width
+
+		start = outward.transform;
+		end = inward.transform;
 	}
 
 	public override void reset() {

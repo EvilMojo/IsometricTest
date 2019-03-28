@@ -23,15 +23,16 @@ public class UnitBase : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		init ();
 	}
 
-	public virtual void init() {
+	public void init() {
 
-		/*unitName = "Unnamed Unit";
+		unitName = "Unnamed Unit";
 		name = unitName;
 
-		portrait = new Texture2D ((int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.x, (int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.y);
+		//portrait = new Sprite ((int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.x, (int)GameObject.Find("UnitPicker").transform.GetChild(0).GetChild(0).FindChild("Portrait").GetComponent<RectTransform>().sizeDelta.y);
+
+		portrait = new Sprite ();
 
 		stat = new int[8];
 		for (int i = 0; i < 8; i++) {
@@ -44,7 +45,7 @@ public class UnitBase : MonoBehaviour {
 			equipmentSlots [i].transform.SetParent (this.gameObject.transform);
 		}
 
-		description = "Basic Unit";*/
+		description = "Basic Unit";
 	}
 
 	public void readUnit() {

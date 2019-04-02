@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2697,8 +2697,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 618576899}
   m_HandleRect: {fileID: 618576898}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9773464
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4137,7 +4137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 224.41063}
+  m_AnchoredPosition: {x: 0, y: 224.34998}
   m_SizeDelta: {x: 436, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &659860235
@@ -4773,6 +4773,7 @@ GameObject:
   - component: {fileID: 735157466}
   - component: {fileID: 735157465}
   - component: {fileID: 735157467}
+  - component: {fileID: 735157468}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -4869,20 +4870,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 735157465}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1572751645}
-        m_MethodName: toggleEquipment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &735157468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 735157463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db423d39d02ff84581b20716383d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
+  index: 0
 --- !u!1 &756214520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4964,6 +4967,7 @@ GameObject:
   - component: {fileID: 758929029}
   - component: {fileID: 758929028}
   - component: {fileID: 758929030}
+  - component: {fileID: 758929031}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -5060,20 +5064,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 758929028}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1572751645}
-        m_MethodName: toggleEquipment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &758929031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 758929026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db423d39d02ff84581b20716383d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
+  index: 0
 --- !u!1 &761452893
 GameObject:
   m_ObjectHideFlags: 0
@@ -6037,8 +6043,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1008610833}
   m_HandleRect: {fileID: 1008610832}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9999998
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7947,6 +7953,7 @@ GameObject:
   - component: {fileID: 1223071615}
   - component: {fileID: 1223071614}
   - component: {fileID: 1223071616}
+  - component: {fileID: 1223071617}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -8043,20 +8050,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1223071614}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1572751645}
-        m_MethodName: toggleEquipment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1223071617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1223071612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db423d39d02ff84581b20716383d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
+  index: 0
 --- !u!1 &1231298112
 GameObject:
   m_ObjectHideFlags: 0
@@ -8413,6 +8422,7 @@ GameObject:
   - component: {fileID: 1335464209}
   - component: {fileID: 1335464208}
   - component: {fileID: 1335464210}
+  - component: {fileID: 1335464211}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -8509,20 +8519,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1335464208}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1572751645}
-        m_MethodName: toggleEquipment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1335464211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1335464206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db423d39d02ff84581b20716383d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
+  index: 0
 --- !u!1 &1335709552
 GameObject:
   m_ObjectHideFlags: 0
@@ -9744,6 +9756,7 @@ GameObject:
   - component: {fileID: 1691577876}
   - component: {fileID: 1691577875}
   - component: {fileID: 1691577877}
+  - component: {fileID: 1691577878}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -9840,20 +9853,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1691577875}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1572751645}
-        m_MethodName: toggleEquipment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1691577878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1691577873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db423d39d02ff84581b20716383d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
+  index: 0
 --- !u!1 &1700876806
 GameObject:
   m_ObjectHideFlags: 0
@@ -10107,6 +10122,7 @@ GameObject:
   - component: {fileID: 1751030796}
   - component: {fileID: 1751030795}
   - component: {fileID: 1751030797}
+  - component: {fileID: 1751030798}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -10203,20 +10219,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1751030795}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1572751645}
-        m_MethodName: toggleEquipment
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1751030798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1751030793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db423d39d02ff84581b20716383d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipment: {fileID: 0}
+  index: 0
 --- !u!1 &1777560858
 GameObject:
   m_ObjectHideFlags: 0

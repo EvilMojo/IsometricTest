@@ -7,6 +7,7 @@ public class EquipmentBase : MonoBehaviour {
 	public enum EquipmentType
 	{
 		HEAD,
+		OPTIC,
 		BODY,
 		WEAPON,
 		CARRY,

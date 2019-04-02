@@ -92,7 +92,7 @@ public class OptionsView : View {
 		toggle ();
 	}
 
-	public void toggleEquipment(UnitBase.UnitType unitType) {
+	public void toggleEquipment(GameObject unit, int equipmentindex) {
 
 		//this.gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 		//this.gameObject.GetComponent<CanvasGroup> ().interactable = true;
@@ -105,41 +105,54 @@ public class OptionsView : View {
 		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().interactable = true;
 		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
+		print ("Children then = " + this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount);
+
+		if (this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount != 0) {
+			foreach (Transform child in this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content")) {
+				print ("Destroying " + child.gameObject.name);
+				Destroy (child.gameObject);
+			}
+		}
+
+		print ("Children now = " + this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount);
 
 		if (this.gameObject.transform.FindChild ("Panel").FindChild("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount == 0) {
 			choiceUIEquipment = new List<GameObject> ();
 			//print (GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().unitList);
 			int iterator = 0;
-
+	
 			foreach (GameObject equipmentTemplate in GameObject.Find("PlayerSetup").GetComponent<Human>().equipmentList) {
-
+				print (unit.name);
+				print (equipmentTemplate.GetComponent<EquipmentBase> ().location);
+				print (unit.GetComponent<UnitBase> ().equipmentSlots [equipmentindex].GetComponent<EquipmentBase>().location);
 				//Check to make sure that the equipment type matches the slot type
+				if (equipmentTemplate.GetComponent<EquipmentBase> ().location == unit.GetComponent<UnitBase> ().equipmentSlots [equipmentindex].GetComponent<EquipmentBase>().location) {
+					//Check to make sure that the unit type matches the equipment class restriction
+					foreach (UnitBase.UnitType typeValidation in equipmentTemplate.GetComponent<EquipmentBase>().validWearer) {
+						if (typeValidation == unit.GetComponent<UnitBase> ().type) {
 
-				//Check to make sure that the unit type matches the equipment class restriction
-				foreach (UnitBase.UnitType typeValidation in equipmentTemplate.GetComponent<EquipmentBase>().validWearer) {
-					if (typeValidation == unitType) {
+							GameObject equipmentItem = Instantiate (Resources.Load ("UIPrefabs/EquipmentItem", typeof(GameObject)) as GameObject);
+							equipmentItem.transform.SetParent (GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content"));
 
-						GameObject equipmentItem = Instantiate (Resources.Load ("UIPrefabs/EquipmentItem", typeof(GameObject)) as GameObject);
-						equipmentItem.transform.SetParent (GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content"));
+							equipmentItem.transform.FindChild ("Portrait").gameObject.GetComponent<Image> ().sprite = equipmentTemplate.GetComponent<EquipmentBase> ().portrait;
+							equipmentItem.transform.FindChild ("Name").gameObject.GetComponent<Text> ().text = equipmentTemplate.GetComponent<EquipmentBase> ().equipmentName;
+							equipmentItem.transform.FindChild ("Description").FindChild ("Text").gameObject.GetComponent<Text> ().text = equipmentTemplate.GetComponent<EquipmentBase> ().description;
+						
+							for (int i = 0; i < 8; i++) {
+								//unitItem.transform.FindChild("Stats").FindChild("Stat ("+i.ToString()+")").FindChild("StatIcon") == REQUIRE IMAGES FIRST;
+								equipmentItem.transform.FindChild ("Stats").FindChild ("Stat (" + i.ToString () + ")").FindChild ("StatNum").gameObject.GetComponent<Text> ().text = equipmentTemplate.GetComponent<EquipmentBase> ().stat [i].ToString ();
+							}
 
-						equipmentItem.transform.FindChild ("Portrait").gameObject.GetComponent<Image> ().sprite = equipmentTemplate.GetComponent<EquipmentBase> ().portrait;
-						equipmentItem.transform.FindChild ("Name").gameObject.GetComponent<Text> ().text = equipmentTemplate.GetComponent<EquipmentBase> ().equipmentName;
-						equipmentItem.transform.FindChild ("Description").FindChild ("Text").gameObject.GetComponent<Text> ().text = equipmentTemplate.GetComponent<EquipmentBase> ().description;
+							equipmentItem.transform.localScale = new Vector3 (1, 1, 1);
+							equipmentItem.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 1);
+							equipmentItem.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 1);
+							equipmentItem.GetComponent<RectTransform> ().pivot = new Vector2 (0, 0);
+							equipmentItem.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (0, -(equipmentItem.GetComponent<RectTransform> ().sizeDelta.y * (iterator + 1)));
+							equipmentItem.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 90);
 
-						for (int i = 0; i < 8; i++) {
-							//unitItem.transform.FindChild("Stats").FindChild("Stat ("+i.ToString()+")").FindChild("StatIcon") == REQUIRE IMAGES FIRST;
-							equipmentItem.transform.FindChild ("Stats").FindChild ("Stat (" + i.ToString () + ")").FindChild ("StatNum").gameObject.GetComponent<Text> ().text = equipmentTemplate.GetComponent<EquipmentBase> ().stat [i].ToString ();
+							equipmentItem.GetComponent<Button> ().onClick.AddListener (toggle);
+							iterator++;
 						}
-
-						equipmentItem.transform.localScale = new Vector3 (1, 1, 1);
-						equipmentItem.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 1);
-						equipmentItem.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 1);
-						equipmentItem.GetComponent<RectTransform> ().pivot = new Vector2 (0, 0);
-						equipmentItem.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (0, -(equipmentItem.GetComponent<RectTransform> ().sizeDelta.y * (iterator + 1)));
-						equipmentItem.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 90);
-
-						equipmentItem.GetComponent<Button> ().onClick.AddListener (toggle);
-						iterator++;
 					}
 				}
 				GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").gameObject.GetComponent<RectTransform> ().sizeDelta 

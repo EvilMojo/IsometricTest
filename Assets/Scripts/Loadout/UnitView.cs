@@ -14,11 +14,18 @@ public class UnitView : View {
 	public void assignUnitDetails (GameObject unit) {
 		print (unit.name + " " + unit.GetComponent<UnitBase>().unitName);
 		print (this.unit.name + this.unit.transform.parent);
+		if (this.gameObject.GetComponent<UnitBase> () == null) {
+			this.gameObject.AddComponent<UnitBase> ();
+		}
 		this.unit.GetComponent<UnitBase> ().unitName = unit.GetComponent<UnitBase> ().unitName;
 		this.unit.GetComponent<UnitBase> ().type = unit.GetComponent<UnitBase> ().type;
 		this.unit.GetComponent<UnitBase> ().portrait = unit.GetComponent<UnitBase> ().portrait;
 		this.unit.GetComponent<UnitBase> ().stat = unit.GetComponent<UnitBase> ().stat;
 		this.unit.GetComponent<UnitBase> ().equipmentSlots = unit.GetComponent<UnitBase> ().equipmentSlots;
+		for (int i = 0; i < unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
+			//unit.GetComponent<UnitBase>().equipmentSlots[i].AddComponent<EquipmentBase>
+			print (i.ToString () + unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName);
+		}
 		this.unit.GetComponent<UnitBase> ().description = unit.GetComponent<UnitBase> ().description;
 	}
 
@@ -31,12 +38,21 @@ public class UnitView : View {
 			this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("UnitStats").FindChild ("Panel").FindChild ("Stat (" + i + ")").FindChild("StatNum").gameObject.GetComponent<Text>().text = unit.GetComponent<UnitBase>().stat[i].ToString();
 		}
 
+
 		for (int i = 0; i < 6; i++) {
 			GameObject EquipmentSlot = this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + i + ")").gameObject;
+			//EquipmentSlot.name = "ESlot " + i.ToString ();
 			if (i < this.unit.GetComponent<UnitBase> ().equipmentSlots.Length) {
 				EquipmentSlot.GetComponent<CanvasGroup>().alpha = 1;
 				EquipmentSlot.GetComponent<CanvasGroup> ().interactable = true;
 				EquipmentSlot.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+				EquipmentSlot.transform.FindChild ("Slot").GetComponent<Button> ().onClick.RemoveAllListeners ();
+				/*EquipmentSlot.transform.FindChild ("Slot").GetComponent<Button> ().onClick.AddListener (delegate {
+					openEquipmentOptions(this.gameObject.transform.FindChild("Options").gameObject);
+				});*/
+				EquipmentSlot.transform.FindChild("Slot").GetComponent<SlotData>().index = i;
+				EquipmentSlot.transform.FindChild ("Slot").GetComponent<SlotData> ().type = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().location;
+
 				//EquipmentSlot.GetComponent<Image>().sprite = unit.GetComponent<UnitBase>().equipmentSlots[i].GetComponent<EquipmentBase>().portrait;
 			} else {
 				//Reset this image, it's not being used
@@ -45,6 +61,20 @@ public class UnitView : View {
 				EquipmentSlot.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 			}
 		}
+		addEquipmentButton (this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + 0 + ")").gameObject);
+		addEquipmentButton (this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + 1 + ")").gameObject);
+		addEquipmentButton (this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + 2 + ")").gameObject);
+		addEquipmentButton (this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + 3 + ")").gameObject);
+		addEquipmentButton (this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + 4 + ")").gameObject);
+		addEquipmentButton (this.gameObject.transform.FindChild ("Panel").FindChild ("Canvas").FindChild ("EquipmentSlots").FindChild ("EquipmentSlotsPanel").FindChild ("EquipmentSlot (" + 5 + ")").gameObject);
+	}
+
+	public void addEquipmentButton(GameObject EquipmentSlot) {
+		EquipmentSlot.transform.FindChild ("Slot").GetComponent<Button> ().onClick.AddListener (delegate {
+			//This would have been useful and straightforward with excepton to the closure problem
+			//this.gameObject.transform.FindChild("Options").gameObject.GetComponent<OptionsView>().toggleEquipment(this.unit, copyi);
+			EquipmentSlot.transform.FindChild ("Slot").gameObject.GetComponent<SlotData>().toggleEquipment(this.unit);
+		});
 	}
 
 	public void dismiss() {

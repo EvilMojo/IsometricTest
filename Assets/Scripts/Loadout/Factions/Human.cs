@@ -80,6 +80,34 @@ public class Human : MonoBehaviour {
 				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e] = new GameObject ();
 				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].transform.SetParent (unitList[i].transform);
 				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].name = equipments [e];
+				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].AddComponent<EquipmentBase> ();
+				switch (equipments [e]) {
+				case "HEAD": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.HEAD;
+					break;
+				case "OPTIC": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.OPTIC;
+					break;
+				case "BODY": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.BODY;
+					break;
+				case "WEAPON": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.WEAPON;
+					break;
+				case "CARRY": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.CARRY;
+					break;
+				case "FEET": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.FEET;
+					break;
+				case "UTILITY": 
+					unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.UTILITY;
+					break;	
+				default:  
+					//unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location = null;
+					print("Invalid");
+					break;
+				}
 			}
 
 			unitList [i].GetComponent<UnitBase> ().description = unitdata [iterator++]; 
@@ -112,11 +140,19 @@ public class Human : MonoBehaviour {
 			equipmentList[i].GetComponent<EquipmentBase>().gameObject.name = equipmentData [iterator++] + "Template";
 
 			if (equipmentData [iterator] == "HEAD") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.HEAD;
+			} else if (equipmentData [iterator] == "OPTIC") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.OPTIC;
 			} else if (equipmentData [iterator] == "BODY") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.BODY;
 			} else if (equipmentData [iterator] == "WEAPON") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.WEAPON;
 			} else if (equipmentData [iterator] == "CARRY") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.CARRY;
 			} else if (equipmentData [iterator] == "FEET") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.FEET;
 			} else if (equipmentData [iterator] == "UTILITY") {
+				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.UTILITY;
 			}
 			iterator++;
 
@@ -155,7 +191,6 @@ public class Human : MonoBehaviour {
 			}
 			for (int s = 0; s < ints.Length; s++) {
 				equipmentList [i].GetComponent<EquipmentBase> ().stat [s] = int.Parse (ints [s]);
-				print (equipmentList[i].GetComponent<EquipmentBase>().stat[s]);
 			}
 
 			equipmentList [i].GetComponent<EquipmentBase> ().description = equipmentData [iterator++]; 

@@ -42,6 +42,8 @@ public class UnitBase : MonoBehaviour {
 		equipmentSlots = new GameObject[6];
 		for (int i = 0; i < 6; i++) {
 			equipmentSlots[i] = new GameObject();
+			equipmentSlots [i].name = ("Equipment Slot " + i.ToString());
+			equipmentSlots [i].AddComponent<EquipmentBase> ();
 			equipmentSlots [i].transform.SetParent (this.gameObject.transform);
 		}
 

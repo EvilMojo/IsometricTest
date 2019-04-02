@@ -151,6 +151,9 @@ public class OptionsView : View {
 							equipmentItem.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 90);
 
 							equipmentItem.GetComponent<Button> ().onClick.AddListener (toggle);
+							equipmentItem.GetComponent<Button> ().onClick.AddListener (delegate {
+								sendEquipmentData (equipmentTemplate);
+							});
 							iterator++;
 						}
 					}
@@ -169,9 +172,21 @@ public class OptionsView : View {
 	}
 
 	public void sendUnitData(GameObject unit) {
+		foreach (GameObject e in unit.GetComponent<UnitBase>().equipmentSlots) {
+			print (e.name);
+		}
 		GameObject.Find ("UnitPicker").GetComponent<UnitView>().assignUnitDetails(unit);
 		GameObject.Find ("UnitPicker").GetComponent<UnitView>().changeUnitUI();
+	}
 
+	public void sendEquipmentData(GameObject equipment) {
+		print ("Sending Equipment...");
+		print (equipment.GetComponent<EquipmentBase>().equipmentName);
+		print (equipment.GetComponent<EquipmentBase>().location);
+		//print (equipment.GetComponent<EquipmentBase>().validWearer);
+		print (equipment.GetComponent<EquipmentBase>().description);
+		GameObject.Find ("UnitPicker").GetComponent<UnitView>().assignEquipmentDetails(equipment, 0);
+		//GameObject.Find ("UnitPicker").GetComponent<UnitView>().changeUnitUI();
 	}
 
 	public void infoToggle() {

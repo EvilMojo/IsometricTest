@@ -12,8 +12,6 @@ public class UnitView : View {
 	public GameObject unit;
 
 	public void assignUnitDetails (GameObject unit) {
-		print (unit.name + " " + unit.GetComponent<UnitBase>().unitName);
-		print (this.unit.name + this.unit.transform.parent);
 		if (this.gameObject.GetComponent<UnitBase> () == null) {
 			this.gameObject.AddComponent<UnitBase> ();
 		}
@@ -21,12 +19,74 @@ public class UnitView : View {
 		this.unit.GetComponent<UnitBase> ().type = unit.GetComponent<UnitBase> ().type;
 		this.unit.GetComponent<UnitBase> ().portrait = unit.GetComponent<UnitBase> ().portrait;
 		this.unit.GetComponent<UnitBase> ().stat = unit.GetComponent<UnitBase> ().stat;
-		this.unit.GetComponent<UnitBase> ().equipmentSlots = unit.GetComponent<UnitBase> ().equipmentSlots;
-		for (int i = 0; i < unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
-			//unit.GetComponent<UnitBase>().equipmentSlots[i].AddComponent<EquipmentBase>
-			print (i.ToString () + unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName);
+
+		//this.unit.GetComponent<UnitBase> ().equipmentSlots = new GameObject[6];
+		this.unit.GetComponent<UnitBase> ().equipmentSlots = new GameObject[unit.GetComponent<UnitBase> ().equipmentSlots.Length];
+		//print(unit.GetComponent<UnitBase> ().equipmentSlots.Length);
+		//print (this.unit.GetComponent<UnitBase> ().equipmentSlots.Length);
+
+		for (int i = unit.GetComponent<UnitBase> ().equipmentSlots.Length; i < 6; i++) {
+			print (i);
+			this.unit.transform.GetChild (i).gameObject.name = "Equipment Slot " + i.ToString ();
+			this.unit.transform.GetChild (i).gameObject.GetComponent<EquipmentBase> ().equipmentName = "";
+			this.unit.transform.GetChild (i).gameObject.GetComponent<EquipmentBase> ().portrait = null;
+			this.unit.transform.GetChild (i).gameObject.GetComponent<EquipmentBase> ().description = "";
+			this.unit.transform.GetChild (i).gameObject.GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.NONE;
+			this.unit.transform.GetChild (i).gameObject.GetComponent<EquipmentBase> ().validWearer = null;
 		}
+
+		for (int i = 0; i < unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
+			//print (unit.name);
+			//print (unit.transform.GetChild (i).name);
+			//print (this.unit.name);
+			//if (this.unit.GetComponent<UnitBase> ().equipmentSlots[i] == null) {
+			//	print ("NULLLLLL");
+			//}
+			if (i < this.unit.GetComponent<UnitBase> ().equipmentSlots.Length) {
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i] = this.unit.transform.GetChild (i).gameObject;
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].name = unit.transform.GetChild (i).name;
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName;
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().portrait = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().portrait;
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().description = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().description;
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().location = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().location;
+				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().validWearer = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().validWearer;
+			} 
+		}
+
+
+		//this.unit.GetComponent<UnitBase> ().equipmentSlots = unit.GetComponent<UnitBase> ().equipmentSlots;
+
+		//foreach (GameObject delete in this.unit.GetComponent<UnitBase>().equipmentSlots) {
+		//	Destroy (delete);
+		//}
+		//this.unit.GetComponent<UnitBase>().equipmentSlots = new GameObject[unit.GetComponent<UnitBase>().equipmentSlots.Length];
+
+		/*for (int i = 0; i < unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
+
+			unit.GetComponent<UnitBase> ().equipmentSlots [i].name = "Empty Slot " + i.ToString();
+			unit.GetComponent<UnitBase> ().equipmentSlots [i].AddComponent<EquipmentBase> ();
+
+			//print (i.ToString () + unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName);
+		}*/
 		this.unit.GetComponent<UnitBase> ().description = unit.GetComponent<UnitBase> ().description;
+	}
+
+	public void assignEquipmentDetails(GameObject equipment, int index) {
+		print (this.unit.name + " Parent");
+		for (int i = 0; i < this.unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
+			print (this.unit.GetComponent<UnitBase> ().equipmentSlots [i].name);
+		}
+		print (equipment.name + " New");
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].name = equipment.GetComponent<EquipmentBase> ().equipmentName;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().equipmentName = equipment.GetComponent<EquipmentBase> ().equipmentName;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().description = equipment.GetComponent<EquipmentBase> ().description;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().location = equipment.GetComponent<EquipmentBase> ().location;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().portrait = equipment.GetComponent<EquipmentBase> ().portrait;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().validWearer = equipment.GetComponent<EquipmentBase> ().validWearer;
+		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().stat = new int[equipment.GetComponent<EquipmentBase> ().stat.Length];
+		for (int i = 0; i < equipment.GetComponent<EquipmentBase> ().stat.Length; i++) {
+			this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().stat [i] = equipment.GetComponent<EquipmentBase> ().stat [i];
+		}
 	}
 
 	public void changeUnitUI() {
@@ -51,7 +111,7 @@ public class UnitView : View {
 					openEquipmentOptions(this.gameObject.transform.FindChild("Options").gameObject);
 				});*/
 				EquipmentSlot.transform.FindChild("Slot").GetComponent<SlotData>().index = i;
-				EquipmentSlot.transform.FindChild ("Slot").GetComponent<SlotData> ().type = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().location;
+				EquipmentSlot.transform.FindChild("Slot").GetComponent<SlotData> ().type = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().location;
 
 				//EquipmentSlot.GetComponent<Image>().sprite = unit.GetComponent<UnitBase>().equipmentSlots[i].GetComponent<EquipmentBase>().portrait;
 			} else {

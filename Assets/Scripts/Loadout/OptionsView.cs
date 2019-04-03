@@ -92,8 +92,7 @@ public class OptionsView : View {
 		toggle ();
 	}
 
-	public void toggleEquipment(GameObject unit, int equipmentindex) {
-
+	public void toggleEquipment(GameObject unit, int equipmentIndex) {
 		//this.gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 		//this.gameObject.GetComponent<CanvasGroup> ().interactable = true;
 
@@ -105,31 +104,31 @@ public class OptionsView : View {
 		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().interactable = true;
 		this.gameObject.transform.GetChild (0).transform.GetChild (3).GetComponent<CanvasGroup> ().blocksRaycasts = true;
 
-		print ("Children then = " + this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount);
-
 		if (this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount != 0) {
 			foreach (Transform child in this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content")) {
-				print ("Destroying " + child.gameObject.name);
+				//print ("Destroying " + child.gameObject.name);
 				Destroy (child.gameObject);
 			}
 		}
-
-		print ("Children now = " + this.gameObject.transform.FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount);
-
+			
 		if (this.gameObject.transform.FindChild ("Panel").FindChild("EquipmentOptions").FindChild ("Viewport").FindChild ("Content").childCount == 0) {
 			choiceUIEquipment = new List<GameObject> ();
 			//print (GameObject.Find ("PlayerSetup").GetComponent<PlayerSetup> ().unitList);
 			int iterator = 0;
-	
+		
+			//print ("Opening for Equipment: " + unit.name + "." + unit.GetComponent<UnitBase> ().equipmentSlots [equipmentIndex]);
+
 			foreach (GameObject equipmentTemplate in GameObject.Find("PlayerSetup").GetComponent<Human>().equipmentList) {
-				print (unit.name);
-				print (equipmentTemplate.GetComponent<EquipmentBase> ().location);
-				print (unit.GetComponent<UnitBase> ().equipmentSlots [equipmentindex].GetComponent<EquipmentBase>().location);
+
+				//print ("Template: " + equipmentTemplate.name + " | " + equipmentTemplate.GetComponent<EquipmentBase>().location);
+				//print ("Unit: " + unit.GetComponent<UnitBase> ().equipmentSlots [equipmentIndex].name + " | " + unit.GetComponent<UnitBase> ().equipmentSlots [equipmentIndex].GetComponent<EquipmentBase> ().location);
 				//Check to make sure that the equipment type matches the slot type
-				if (equipmentTemplate.GetComponent<EquipmentBase> ().location == unit.GetComponent<UnitBase> ().equipmentSlots [equipmentindex].GetComponent<EquipmentBase>().location) {
+				if (equipmentTemplate.GetComponent<EquipmentBase> ().location == unit.GetComponent<UnitBase> ().equipmentSlots [equipmentIndex].GetComponent<EquipmentBase>().location) {
 					//Check to make sure that the unit type matches the equipment class restriction
 					foreach (UnitBase.UnitType typeValidation in equipmentTemplate.GetComponent<EquipmentBase>().validWearer) {
+						//print ("Loc: " + typeValidation + " == " + unit.GetComponent<UnitBase> ().type);
 						if (typeValidation == unit.GetComponent<UnitBase> ().type) {
+							//print ("True");
 
 							GameObject equipmentItem = Instantiate (Resources.Load ("UIPrefabs/EquipmentItem", typeof(GameObject)) as GameObject);
 							equipmentItem.transform.SetParent (GameObject.Find ("ArmyPicker").transform.FindChild ("UnitPicker").FindChild ("Options").FindChild ("Panel").FindChild ("EquipmentOptions").FindChild ("Viewport").FindChild ("Content"));
@@ -152,7 +151,7 @@ public class OptionsView : View {
 
 							equipmentItem.GetComponent<Button> ().onClick.AddListener (toggle);
 							equipmentItem.GetComponent<Button> ().onClick.AddListener (delegate {
-								sendEquipmentData (equipmentTemplate);
+								sendEquipmentData (equipmentTemplate, equipmentIndex);
 							});
 							iterator++;
 						}
@@ -179,13 +178,13 @@ public class OptionsView : View {
 		GameObject.Find ("UnitPicker").GetComponent<UnitView>().changeUnitUI();
 	}
 
-	public void sendEquipmentData(GameObject equipment) {
+	public void sendEquipmentData(GameObject equipment, int index) {
 		print ("Sending Equipment...");
 		print (equipment.GetComponent<EquipmentBase>().equipmentName);
 		print (equipment.GetComponent<EquipmentBase>().location);
 		//print (equipment.GetComponent<EquipmentBase>().validWearer);
 		print (equipment.GetComponent<EquipmentBase>().description);
-		GameObject.Find ("UnitPicker").GetComponent<UnitView>().assignEquipmentDetails(equipment, 0);
+		GameObject.Find ("UnitPicker").GetComponent<UnitView>().assignEquipmentDetails(equipment, index);
 		//GameObject.Find ("UnitPicker").GetComponent<UnitView>().changeUnitUI();
 	}
 

@@ -7,6 +7,7 @@ public class UnitBase : MonoBehaviour {
 
 	public enum UnitType
 	{
+		NONE,
 		DRONE,
 		SENTINEL,
 		PRISM,
@@ -50,7 +51,13 @@ public class UnitBase : MonoBehaviour {
 		description = "Basic Unit";
 	}
 
-	public void readUnit() {
+	public void copyUnitFrom(GameObject unit) {
+		this.unitName = unit.GetComponent<UnitBase> ().unitName;
+		this.type = unit.GetComponent<UnitBase> ().type;
+		this.portrait = unit.GetComponent<UnitBase> ().portrait;
+		this.stat = unit.GetComponent<UnitBase> ().stat;
+		this.equipmentSlots = unit.GetComponent<UnitBase> ().equipmentSlots;
+		this.description = unit.GetComponent<UnitBase> ().description;
 
 	}
 }

@@ -11,6 +11,22 @@ public class UnitView : View {
 	public int unitIndex;
 	public GameObject unit;
 
+
+	public void clearUnitDetails() {
+		this.unit.GetComponent<UnitBase> ().unitName = "New Unit";
+		this.unit.GetComponent<UnitBase> ().type = UnitBase.UnitType.NONE;
+		this.unit.GetComponent<UnitBase> ().portrait = null;
+		this.unit.GetComponent<UnitBase> ().stat = new int[8] {0, 0, 0, 0, 0, 0, 0, 0};
+		for (int i = 0; i < this.unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
+			this.unit.GetComponent<UnitBase> ().equipmentSlots[i].name = "Equipment Slot " + i.ToString();
+			this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName = "Empty";
+			this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.NONE;
+			this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().description = "";
+			this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().validWearer = new UnitBase.UnitType[0];
+			this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().stat = new int[0];
+		}
+	}
+
 	public void assignUnitDetails (GameObject unit) {
 		if (this.gameObject.GetComponent<UnitBase> () == null) {
 			this.gameObject.AddComponent<UnitBase> ();
@@ -52,22 +68,6 @@ public class UnitView : View {
 				this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().validWearer = unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().validWearer;
 			} 
 		}
-
-
-		//this.unit.GetComponent<UnitBase> ().equipmentSlots = unit.GetComponent<UnitBase> ().equipmentSlots;
-
-		//foreach (GameObject delete in this.unit.GetComponent<UnitBase>().equipmentSlots) {
-		//	Destroy (delete);
-		//}
-		//this.unit.GetComponent<UnitBase>().equipmentSlots = new GameObject[unit.GetComponent<UnitBase>().equipmentSlots.Length];
-
-		/*for (int i = 0; i < unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
-
-			unit.GetComponent<UnitBase> ().equipmentSlots [i].name = "Empty Slot " + i.ToString();
-			unit.GetComponent<UnitBase> ().equipmentSlots [i].AddComponent<EquipmentBase> ();
-
-			//print (i.ToString () + unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().equipmentName);
-		}*/
 		this.unit.GetComponent<UnitBase> ().description = unit.GetComponent<UnitBase> ().description;
 	}
 
@@ -137,7 +137,16 @@ public class UnitView : View {
 		});
 	}
 
-	public void dismiss() {
+
+	public void enlist (GameObject unit) {
+
+	}
+
+	public void dismiss () {
+
+	}
+
+	public void animateDismissal() {
 		outward.transform.position = this.gameObject.transform.position;
 
 		inward.transform.position = new Vector3((Screen.width*2), this.gameObject.transform.position.y, this.gameObject.transform.position.z);
@@ -149,7 +158,9 @@ public class UnitView : View {
 
 		toggle ();
 	}
-	public void enlist() {
+
+
+	public void animateEnlistment() {
 		
 		inward.transform.position = this.gameObject.transform.position;
 		start = inward.transform;
@@ -186,17 +197,19 @@ public class UnitView : View {
 		journeyLength = Vector3.Distance (start.position, end.position);
 		open = false;
 		moving = true;
-
 	}
 
 	public override void initiateLocations () {
 
-
-		unit = new GameObject ();
-		unit.AddComponent<UnitBase> ();
-		unit.GetComponent<UnitBase>().init ();
-		unit.transform.SetParent (this.gameObject.transform);
-		unit.name = "Unit Interface";
+		if (unit == null) {
+			unit = new GameObject ();
+			unit.AddComponent<UnitBase> ();
+			unit.GetComponent<UnitBase> ().init ();
+			unit.transform.SetParent (this.gameObject.transform);
+			unit.name = "Unit Interface";
+		} else {
+			clearUnitDetails ();
+		}
 
 		open = false;
 		moving = false;
@@ -264,4 +277,5 @@ public class UnitView : View {
 		toggle ();
 
 	}
+
 }

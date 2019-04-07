@@ -5,7 +5,6 @@ using UnityEngine;
 public class statToggle : MonoBehaviour {
 
 	public void toggle() {
-		Debug.Log ("Toggling");
 		print (this.gameObject.name);
 		if (this.gameObject.GetComponent<CanvasGroup> ().alpha == 1) {
 			this.gameObject.GetComponent<CanvasGroup> ().alpha = 0;

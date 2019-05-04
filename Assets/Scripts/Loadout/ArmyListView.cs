@@ -93,6 +93,10 @@ public class ArmyListView : MonoBehaviour {
 				//Multiply horizontal by width of display / 5 + width of cards + some arbitrary amount
 				//Vertidcal measurements some arbitrary amount + (card size + arbitrary)* rowiterator
 				iterator++;
+
+				unitCard.GetComponent<Button> ().onClick.AddListener (delegate {
+					displayUnitCard(unit);
+				});
 			}
 		} else {
 			foreach (Transform child in this.gameObject.transform.FindChild("Scroll View").FindChild("Viewport").FindChild("Content").transform) {
@@ -100,6 +104,14 @@ public class ArmyListView : MonoBehaviour {
 				Destroy (child.gameObject);
 			}
 		}
+	}
+
+	public void displayUnitCard(GameObject unit) {
+		print ("No");
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().clearUnitDetails ();
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().assignUnitDetails (unit);
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().slideUpward (this.gameObject.GetComponent<RectTransform>());
+		toggle ();
 	}
 
 	public void scrapArmy() {

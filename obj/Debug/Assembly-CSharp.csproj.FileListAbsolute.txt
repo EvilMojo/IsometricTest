@@ -29,3 +29,34 @@ S:\GameDev\Unity Projects\IsometricTest\Temp\bin\Debug\nunit.framework.xml
 S:\GameDev\Unity Projects\IsometricTest\Temp\bin\Debug\UnityEngine.Analytics.xml
 S:\GameDev\Unity Projects\IsometricTest\Temp\bin\Debug\UnityEngine.HoloLens.xml
 S:\GameDev\Unity Projects\IsometricTest\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\nunit.framework.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEditor.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.Analytics.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.VR.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEditor.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\nunit.framework.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.Analytics.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\obj\Debug\Assembly-CSharp.dll
+C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\obj\Debug\Assembly-CSharp.pdb

@@ -13,6 +13,7 @@ public class UnitView : View {
 
 
 	public void clearUnitDetails() {
+		this.unit = this.gameObject.transform.FindChild ("Unit Interface").gameObject;
 		this.unit.GetComponent<UnitBase> ().unitName = "New Unit";
 		this.unit.GetComponent<UnitBase> ().type = UnitBase.UnitType.NONE;
 		this.unit.GetComponent<UnitBase> ().portrait = null;
@@ -26,7 +27,7 @@ public class UnitView : View {
 			this.unit.GetComponent<UnitBase> ().equipmentSlots [i].GetComponent<EquipmentBase> ().stat = new int[0];
 		}
 	}
-
+/* This is moved over to unitBase. Makes more sense
 	public void assignUnitDetails (GameObject unit) {
 		if (this.gameObject.GetComponent<UnitBase> () == null) {
 			this.gameObject.AddComponent<UnitBase> ();
@@ -70,8 +71,9 @@ public class UnitView : View {
 		}
 		this.unit.GetComponent<UnitBase> ().description = unit.GetComponent<UnitBase> ().description;
 	}
-
-	public void assignEquipmentDetails(GameObject equipment, int index) {
+*/
+	//Moved to UnitBase, it makes more sense to have it there
+/*	public void assignEquipmentDetails(GameObject equipment, int index) {
 		print (this.unit.name + " Parent");
 		for (int i = 0; i < this.unit.GetComponent<UnitBase> ().equipmentSlots.Length; i++) {
 			print (this.unit.GetComponent<UnitBase> ().equipmentSlots [i].name);
@@ -83,10 +85,20 @@ public class UnitView : View {
 		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().location = equipment.GetComponent<EquipmentBase> ().location;
 		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().portrait = equipment.GetComponent<EquipmentBase> ().portrait;
 		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().validWearer = equipment.GetComponent<EquipmentBase> ().validWearer;
-		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().stat = new int[equipment.GetComponent<EquipmentBase> ().stat.Length];
-		for (int i = 0; i < equipment.GetComponent<EquipmentBase> ().stat.Length; i++) {
-			this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().stat [i] = equipment.GetComponent<EquipmentBase> ().stat [i];
-		}
+	//	this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().stat = new int[equipment.GetComponent<EquipmentBase> ().stat.Length];
+	//	for (int i = 0; i < equipment.GetComponent<EquipmentBase> ().stat.Length; i++) {
+	//		this.unit.GetComponent<UnitBase> ().equipmentSlots [index].GetComponent<EquipmentBase> ().stat [i] = equipment.GetComponent<EquipmentBase> ().stat [i];
+	//	}
+	//}*/
+
+	public void changeUnitObjectInfo() {
+		GameObject unitInterface = this.gameObject.transform.FindChild ("Unit Interface").gameObject;
+		print (unitInterface.name + "Interface");
+		print (this.unit + " changing into");
+		unitInterface.GetComponent<UnitBase> ().assignUnitDetails (this.unit);
+		print (this.unit + " changing middle");
+		unitInterface.GetComponent<UnitBase> ().assignEquipmentDetails (this.unit);
+		print (this.unit + " changing outof");
 	}
 
 	public void changeUnitUI() {
@@ -135,15 +147,6 @@ public class UnitView : View {
 			//this.gameObject.transform.FindChild("Options").gameObject.GetComponent<OptionsView>().toggleEquipment(this.unit, copyi);
 			EquipmentSlot.transform.FindChild ("Slot").gameObject.GetComponent<SlotData>().toggleEquipment(this.unit);
 		});
-	}
-
-
-	public void enlist (GameObject unit) {
-
-	}
-
-	public void dismiss () {
-
 	}
 
 	public void animateDismissal() {
@@ -207,8 +210,10 @@ public class UnitView : View {
 			unit.GetComponent<UnitBase> ().init ();
 			unit.transform.SetParent (this.gameObject.transform);
 			unit.name = "Unit Interface";
+			print ("Did we just reset???");
 		} else {
-			clearUnitDetails ();
+			print ("Did we just clear shit???");
+			//clearUnitDetails ();
 		}
 
 		open = false;
@@ -263,6 +268,9 @@ public class UnitView : View {
 	}
 
 	public void slideUpward(RectTransform iconTransform) {
+
+
+
 		initiateLocations ();
 
 		inward.transform.position = iconTransform.position;
@@ -276,6 +284,26 @@ public class UnitView : View {
 
 		toggle ();
 
+	}
+
+	public void toggleButton(string appear) {
+		if (appear == "enlist") {
+			print ("enlisting");
+			this.transform.GetChild(0).GetChild(0).FindChild ("Enlist").gameObject.GetComponent<CanvasGroup> ().alpha = 1;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Enlist").gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Enlist").gameObject.GetComponent<CanvasGroup> ().interactable = true;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Modify").gameObject.GetComponent<CanvasGroup> ().alpha = 0;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Modify").gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Modify").gameObject.GetComponent<CanvasGroup> ().interactable = false;
+		} else if (appear == "modify") {
+			print ("modifying");
+			this.transform.GetChild(0).GetChild(0).FindChild ("Enlist").gameObject.GetComponent<CanvasGroup> ().alpha = 0;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Enlist").gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Enlist").gameObject.GetComponent<CanvasGroup> ().interactable = false;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Modify").gameObject.GetComponent<CanvasGroup> ().alpha = 1;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Modify").gameObject.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+			this.transform.GetChild(0).GetChild(0).FindChild ("Modify").gameObject.GetComponent<CanvasGroup> ().interactable = true;
+		}
 	}
 
 }

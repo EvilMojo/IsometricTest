@@ -60,3 +60,34 @@ C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\Temp\bin\Debug\UnityEngin
 C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\obj\Debug\Assembly-CSharp.dll
 C:\Users\tadde\OneDrive\Documents\GitHub\IsometricTest\obj\Debug\Assembly-CSharp.pdb
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Assembly-CSharp.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Assembly-CSharp.pdb
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\nunit.framework.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEditor.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.Analytics.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.HoloLens.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.Networking.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.TestRunner.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.UI.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.VR.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Mono.Cecil.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Unity.SerializationLogic.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Unity.DataContract.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Unity.UNetWeaver.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Unity.CecilTools.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEditor.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.UI.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.Networking.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.TestRunner.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\nunit.framework.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.Analytics.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.HoloLens.xml
+S:\GameDev\Unity Projects\IsometricTestGit\Temp\bin\Debug\UnityEngine.VR.xml
+S:\GameDev\Unity Projects\IsometricTestGit\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+S:\GameDev\Unity Projects\IsometricTestGit\obj\Debug\Assembly-CSharp.dll
+S:\GameDev\Unity Projects\IsometricTestGit\obj\Debug\Assembly-CSharp.pdb

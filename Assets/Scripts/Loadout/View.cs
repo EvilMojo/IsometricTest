@@ -102,6 +102,7 @@ public class View : MonoBehaviour {
 
 		if (inward == null && outward == null) {
 			this.gameObject.SetActive (true);
+			print ("Is this doing?");
 			initiateLocations ();
 		}
 
@@ -134,12 +135,11 @@ public class View : MonoBehaviour {
 
 	public bool sameSize() {
 
-		/*		if (this.gameObject.transform.localScale.x == outward.transform.localScale.x
+		/*if (this.gameObject.transform.localScale.x == outward.transform.localScale.x
 			&& this.gameObject.transform.localScale.y == outward.transform.localScale.y
 			&& this.gameObject.transform.localScale.z == outward.transform.localScale.z) {
 			return true;
-		}
-*/
+		}*/
 		if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> () != null && outward.GetComponent<RectTransform> () != null) {
 			if (this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().rect.width == outward.GetComponent<RectTransform> ().rect.width
 			    && this.gameObject.transform.GetChild (0).GetComponent<RectTransform> ().rect.height == outward.GetComponent<RectTransform> ().rect.height) {
@@ -158,7 +158,4 @@ public class View : MonoBehaviour {
 	public virtual void reset() {
 		Debug.Log ("Using base View class is forbidden");
 	}
-
-
-
 }

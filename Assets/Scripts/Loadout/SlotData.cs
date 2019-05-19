@@ -9,6 +9,7 @@ public class SlotData : MonoBehaviour {
 
 	public void toggleEquipment(GameObject unit) {
 		GameObject.Find ("Options").GetComponent<OptionsView> ().toggleEquipment (unit, index);	
+		print (unit.name + "?, e" + index);
 	}
 
 }

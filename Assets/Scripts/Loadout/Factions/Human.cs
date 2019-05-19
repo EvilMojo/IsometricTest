@@ -108,7 +108,12 @@ public class Human : MonoBehaviour {
 					print("Invalid");
 					break;
 				}
+
+				unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().equipmentName = unitList [i].GetComponent<UnitBase> ().equipmentSlots [e].GetComponent<EquipmentBase> ().location.ToString ();
+
 			}
+
+
 
 			unitList [i].GetComponent<UnitBase> ().description = unitdata [iterator++]; 
 		}
@@ -137,6 +142,7 @@ public class Human : MonoBehaviour {
 			equipmentList[i].AddComponent<EquipmentBase>();
 
 			equipmentList[i].GetComponent<EquipmentBase>().equipmentName = equipmentData [iterator];
+
 			equipmentList[i].GetComponent<EquipmentBase>().gameObject.name = equipmentData [iterator++] + "Template";
 
 			if (equipmentData [iterator] == "HEAD") {
@@ -154,6 +160,7 @@ public class Human : MonoBehaviour {
 			} else if (equipmentData [iterator] == "UTILITY") {
 				equipmentList [i].GetComponent<EquipmentBase> ().location = EquipmentBase.EquipmentType.UTILITY;
 			}
+
 			iterator++;
 
 			equipmentList[i].GetComponent<EquipmentBase>().portrait = Resources.Load(("Images/Factions/Human/Equipment/" + (equipmentData [iterator++])), typeof (Sprite)) as Sprite;

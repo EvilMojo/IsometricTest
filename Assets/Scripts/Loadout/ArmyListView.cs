@@ -66,13 +66,20 @@ public class ArmyListView : MonoBehaviour {
 	}
 
 	public void displayArmy(GameObject PlayerObject) {
+
 		if (open) {
 			int iterator = 0;
 			foreach (GameObject unit in PlayerObject.GetComponent<PlayerSetup>().unitList) {
+				print (unit.name);
 				GameObject unitCard = Instantiate (Resources.Load ("UIPrefabs/unitCard", typeof(GameObject)) as GameObject);
 
-				unitCard.AddComponent<UnitBase> ();
-				unitCard.GetComponent<UnitBase> ().copyUnitFrom (unit);
+				unitCard.AddComponent<UnitCard> ();
+				unitCard.GetComponent<UnitCard>().unit = unit;
+				//unitCard.GetComponent<UnitBase> ().init ();
+				//unitCard.GetComponent<UnitBase> ().initEquipment ();
+
+				//unitCard.GetComponent<UnitBase> ().assignUnitDetails (unit);
+				//unitCard.GetComponent<UnitBase> ().assignEquipmentDetails (unit);
 
 				unitCard.transform.SetParent (this.gameObject.transform.FindChild ("Scroll View").transform.FindChild ("Viewport").transform.FindChild ("Content").transform);
 				unitCard.transform.FindChild ("Panel").FindChild ("Name").gameObject.GetComponent<Text> ().text = unit.GetComponent<UnitBase> ().unitName;
@@ -94,23 +101,34 @@ public class ArmyListView : MonoBehaviour {
 				//Vertidcal measurements some arbitrary amount + (card size + arbitrary)* rowiterator
 				iterator++;
 
-				unitCard.GetComponent<Button> ().onClick.AddListener (delegate {
-					displayUnitCard(unit);
+				unitCard.transform.GetChild(0).gameObject.GetComponent<Button> ().onClick.AddListener (delegate {
+					displayUnitCard(unitCard.GetComponent<UnitCard>().unit);
 				});
 			}
 		} else {
 			foreach (Transform child in this.gameObject.transform.FindChild("Scroll View").FindChild("Viewport").FindChild("Content").transform) {
-				print (child.gameObject.name);
 				Destroy (child.gameObject);
 			}
 		}
 	}
 
-	public void displayUnitCard(GameObject unit) {
-		print ("No");
+	public void displayUnitCard(GameObject unitCard) {
+		//print (GameObject.Find ("UnitPicker").transform.FindChild("Unit Interface").gameObject);
+
 		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().clearUnitDetails ();
-		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().assignUnitDetails (unit);
+
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().unit = unitCard;
+		print (GameObject.Find ("UnitPicker").GetComponent<UnitView> ().unit.name);
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().changeUnitObjectInfo ();
+		print (GameObject.Find ("UnitPicker").GetComponent<UnitView> ().unit.name);
+		//GameObject.Find ("UnitPicker").GetComponent<UnitView> ().changeUnitInterfaceInfo ();
+
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().changeUnitUI ();
+		print (GameObject.Find ("UnitPicker").GetComponent<UnitView> ().unit.name);
+
+		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().toggleButton ("modify");
 		GameObject.Find ("UnitPicker").GetComponent<UnitView> ().slideUpward (this.gameObject.GetComponent<RectTransform>());
+		print (GameObject.Find ("UnitPicker").GetComponent<UnitView> ().unit.name);
 		toggle ();
 	}
 
